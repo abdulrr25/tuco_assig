@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  contactId   String
+  contactName String
+  phone       String
+  messageText String
+  campaignId  String
+  priority    String   @default("normal") // high | normal | low
+  status      String   @default("queued") // queued | delivered | failed | rate_limited
+  createdAt   DateTime @default(now())
+  deliveredAt DateTime?
+  retryCount  Int      @default(0)
+}
