@@ -4,18 +4,19 @@ generator client {
 
 datasource db {
   provider = "sqlite"
+  url      = env("DATABASE_URL")   
 }
 
 model Message {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   contactId   String
   contactName String
   phone       String
   messageText String
   campaignId  String
-  priority    String   @default("normal") // high | normal | low
-  status      String   @default("queued") // queued | delivered | failed | rate_limited
-  createdAt   DateTime @default(now())
+  priority    String    @default("normal")
+  status      String    @default("queued")
+  createdAt   DateTime  @default(now())
   deliveredAt DateTime?
-  retryCount  Int      @default(0)
+  retryCount  Int       @default(0)
 }
